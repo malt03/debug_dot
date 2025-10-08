@@ -1,4 +1,4 @@
-import 'debug_menu.dart';
+import 'debug_dot.dart';
 import 'package:flutter/material.dart';
 
 class DebugPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class DebugPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Debug Menu'),
-        actions: [IconButton(icon: Icon(Icons.close), onPressed: close)],
+        actions: [IconButton(icon: Icon(DebugDot.of(context).closeIcon ?? Icons.close), onPressed: close)],
       ),
       body: ListView.builder(
         itemBuilder: (context, index) {

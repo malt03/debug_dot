@@ -10,6 +10,7 @@ class DebugDot extends StatefulWidget {
   final List<DebugMenu> menus;
   final DebugDotPosition initialPosition;
   final EdgeInsets padding;
+  final IconData? closeIcon;
   final Widget child;
 
   const DebugDot({
@@ -18,6 +19,7 @@ class DebugDot extends StatefulWidget {
     required this.child,
     this.initialPosition = DebugDotPosition.bottomRight,
     this.padding = const EdgeInsets.all(80),
+    this.closeIcon,
   });
 
   static DebugDotState of(BuildContext context) {
@@ -34,6 +36,8 @@ class DebugDotState extends State<DebugDot> {
   final _overlayKey = GlobalKey<OverlayState>();
   OverlayEntry? _debugDotEntry;
   OverlayEntry? _debugAppEntry;
+
+  IconData? get closeIcon => widget.closeIcon;
 
   OverlayState _overlayState() {
     final overlay = _overlayKey.currentState;

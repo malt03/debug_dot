@@ -2,3 +2,5 @@ example/*
 !example/lib/
 
 screenshots/
+
+*.iml

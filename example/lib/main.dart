@@ -2,8 +2,27 @@ import 'package:debug_dot/debug_dot.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const DebugDot(menus: [_SnackBarDebugMenu(), _ShowPageDebugMenu(), RemoveDebugDotDebugMenu()], child: _App()));
+  runApp(
+    const DebugDot(
+      menus: [
+        // _DummyDebugMenu('UserID: 12345', Icons.person),
+        // _DummyDebugMenu('Environment: Staging1', Icons.cloud),
+        // _DummyDebugMenu('Version: 1.0.1', Icons.info),
+        _SnackBarDebugMenu(), _ShowPageDebugMenu(), RemoveDebugDotDebugMenu(),
+      ],
+      child: _App(),
+    ),
+  );
 }
+
+// class _DummyDebugMenu extends DebugMenu {
+//   @override
+//   final String title;
+//   @override
+//   final IconData? icon;
+
+//   const _DummyDebugMenu(this.title, this.icon);
+// }
 
 class _SnackBarDebugMenu extends DebugMenu {
   @override

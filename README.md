@@ -1,39 +1,104 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# debug_dot
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
-
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
-
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+A Flutter package that provides a floating debug dot for easy access to development tools and debug options during app development.
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- **Floating Debug Dot**: A draggable bug icon that floats on your app screen
+- **Customizable Debug Menu**: Add your own debug menu items with custom actions
+- **Easy Integration**: Simply wrap your app with the `DebugDot` widget
 
-## Getting started
+## Screenshots
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+<img src="https://raw.githubusercontent.com/malt03/debug_dot/refs/heads/main/screenshots/home.png" width="300" alt="Home Screen with Debug Dot"> <img src="https://raw.githubusercontent.com/malt03/debug_dot/refs/heads/main/screenshots/menu.png" width="300" alt="Debug Menu">
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+### Basic Usage
+
+Wrap your app with the `DebugDot` widget and provide a list of debug menu items:
 
 ```dart
-const like = 'sample';
+import 'package:debug_dot/debug_dot.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(
+    const DebugDot(
+      menus: [
+        YourDebugMenuA(),
+        YourDebugMenuB(),
+        RemoveDebugDotDebugMenu(), // Built-in menu to remove the debug dot
+      ],
+      child: MyApp(),
+    ),
+  );
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'My App',
+      home: MyHomePage(),
+    );
+  }
+}
 ```
 
-## Additional information
+### Custom Debug Menu Items
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+Create custom debug menu items by extending the `DebugMenu` class:
+
+```dart
+class SnackBarDebugMenu extends DebugMenu {
+  @override
+  String get title => 'Show SnackBar';
+
+  @override
+  IconData? get icon => Icons.message;
+
+  const SnackBarDebugMenu();
+
+  @override
+  Route? onTap(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Debug message!')),
+    );
+    return null; // Return null for actions that don't navigate
+  }
+}
+
+class DebugPageMenu extends DebugMenu {
+  @override
+  String get title => 'Debug Settings';
+
+  @override
+  IconData? get icon => Icons.settings;
+
+  const DebugPageMenu();
+
+  @override
+  Route? onTap(BuildContext context) {
+    return MaterialPageRoute(
+      builder: (context) => DebugSettingsPage(),
+    );
+  }
+}
+```
+
+## Development
+
+This package is designed specifically for development and debugging purposes. Consider removing or conditionally including the debug dot in production builds:
+
+```dart
+Widget buildApp() {
+  if (kDebugMode) {
+    return DebugDot(
+      menus: [...],
+      child: MyApp(),
+    );
+  }
+  return MyApp();
+}
+```

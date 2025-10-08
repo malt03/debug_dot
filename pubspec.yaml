@@ -1,7 +1,14 @@
 name: debug_dot
-description: "A new Flutter package project."
+description: A Flutter package that provides a floating debug dot for easy access to development tools and debug options during app development.
 version: 0.0.1
-homepage: https://github.com/malt03/debug_dot
+repository: https://github.com/malt03/debug_dot
+issue_tracker: https://github.com/malt03/debug_dot/issues
+
+topics:
+  - debug
+  - development
+  - tools
+  - flutter
 
 environment:
   sdk: ^3.9.2

@@ -17,11 +17,11 @@ class DebugPage extends StatelessWidget {
       body: ListView.builder(
         itemBuilder: (context, index) {
           final menu = menus[index];
-          final icon = menu.icon;
+          final info = menu.info(context);
           return Card(
             child: ListTile(
-              leading: icon == null ? null : Icon(icon),
-              title: Text(menu.title),
+              leading: info.icon == null ? null : Icon(info.icon),
+              title: Text(info.title),
               onTap: () {
                 final route = menu.onTap(context);
                 if (route == null) return;

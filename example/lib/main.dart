@@ -25,25 +25,29 @@ void main() {
 // }
 
 class _SnackBarDebugMenu extends DebugMenu {
-  @override
-  String get title => 'Show SnackBar';
-  @override
-  IconData? get icon => Icons.message;
-
   const _SnackBarDebugMenu();
 
   @override
+  DebugMenuInfo info(BuildContext context) {
+    return const DebugMenuInfo(title: 'Show SnackBar', icon: Icons.message);
+  }
+
+  @override
   Route? onTap(BuildContext context) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('This is a SnackBar')));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('This is a SnackBar')));
     return null;
   }
 }
 
 class _ShowPageDebugMenu extends DebugMenu {
-  @override
-  String get title => 'Show Page';
-
   const _ShowPageDebugMenu();
+
+  @override
+  DebugMenuInfo info(BuildContext context) {
+    return const DebugMenuInfo(title: 'Show Page', icon: Icons.pageview);
+  }
 
   @override
   Route? onTap(BuildContext context) {

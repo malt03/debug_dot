@@ -2,22 +2,28 @@ import 'debug_app.dart';
 import 'debug_dot.dart';
 import 'package:flutter/material.dart';
 
+class DebugMenuInfo {
+  final String title;
+  final IconData? icon;
+
+  const DebugMenuInfo({required this.title, this.icon});
+}
+
 abstract class DebugMenu {
   const DebugMenu();
 
-  String get title;
-  IconData? get icon => null;
+  DebugMenuInfo info(BuildContext context);
 
   Route? onTap(BuildContext context) => null;
 }
 
 class RemoveDebugDotDebugMenu extends DebugMenu {
-  @override
-  String get title => 'Remove Debug Dot';
-  @override
-  IconData? get icon => Icons.delete_forever;
-
   const RemoveDebugDotDebugMenu();
+
+  @override
+  DebugMenuInfo info(BuildContext context) {
+    return const DebugMenuInfo(title: 'Remove Debug Dot');
+  }
 
   @override
   Route? onTap(BuildContext context) {

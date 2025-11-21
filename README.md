@@ -52,13 +52,12 @@ Create custom debug menu items by extending the `DebugMenu` class:
 
 ```dart
 class SnackBarDebugMenu extends DebugMenu {
-  @override
-  String get title => 'Show SnackBar';
-
-  @override
-  IconData? get icon => Icons.message;
-
   const SnackBarDebugMenu();
+
+  @override
+  DebugMenuInfo info(BuildContext context) {
+    return const DebugMenuInfo(title: 'Show SnackBar', icon: Icons.message);
+  }
 
   @override
   Route? onTap(BuildContext context) {
@@ -70,13 +69,12 @@ class SnackBarDebugMenu extends DebugMenu {
 }
 
 class DebugPageMenu extends DebugMenu {
-  @override
-  String get title => 'Debug Settings';
-
-  @override
-  IconData? get icon => Icons.settings;
-
   const DebugPageMenu();
+
+  @override
+  DebugMenuInfo info(BuildContext context) {
+    return const DebugMenuInfo(title: 'Show Page', icon: Icons.pageview);
+  }
 
   @override
   Route? onTap(BuildContext context) {

@@ -1,15 +1,17 @@
 export 'debug_menu.dart';
 export 'debug_dot_view.dart' show DebugDotPosition;
 
+import 'package:flutter/material.dart';
+
 import 'debug_app.dart';
 import 'debug_dot_view.dart';
 import 'debug_menu.dart';
-import 'package:flutter/widgets.dart';
 
 class DebugDot extends StatefulWidget {
   final List<DebugMenu> menus;
   final DebugDotPosition initialPosition;
   final EdgeInsets padding;
+  final MaterialAppBuilder? appBuilder;
   final Widget child;
 
   const DebugDot({
@@ -18,6 +20,7 @@ class DebugDot extends StatefulWidget {
     required this.child,
     this.initialPosition = DebugDotPosition.bottomRight,
     this.padding = const EdgeInsets.all(80),
+    this.appBuilder,
   });
 
   static DebugDotState of(BuildContext context) {
@@ -59,8 +62,13 @@ class DebugDotState extends State<DebugDot> {
   }
 
   void showDebugApp() {
+    final MaterialAppBuilder appBuilder =
+        widget.appBuilder ??
+        (context, home) =>
+            MaterialApp(debugShowCheckedModeBanner: false, home: home);
     final entry = OverlayEntry(
-      builder: (context) => DebugApp(menus: widget.menus),
+      builder: (context) =>
+          DebugApp(menus: widget.menus, appBuilder: appBuilder),
     );
     _overlayState().insert(entry);
     _debugAppEntry = entry;

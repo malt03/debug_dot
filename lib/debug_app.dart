@@ -2,10 +2,13 @@ import 'debug_dot.dart';
 import 'debug_page.dart';
 import 'package:flutter/material.dart';
 
+typedef MaterialAppBuilder = Widget Function(BuildContext context, Widget home);
+
 class DebugApp extends StatefulWidget {
-  const DebugApp({super.key, required this.menus});
+  const DebugApp({super.key, required this.menus, required this.appBuilder});
 
   final List<DebugMenu> menus;
+  final MaterialAppBuilder appBuilder;
 
   static DebugAppState of(BuildContext context) {
     final state = context.findAncestorStateOfType<DebugAppState>();
@@ -48,9 +51,9 @@ class DebugAppState extends State<DebugApp> {
     return AnimatedOpacity(
       opacity: _opacity,
       duration: _animationDuration,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: DebugPage(menus: widget.menus, close: close),
+      child: widget.appBuilder(
+        context,
+        DebugPage(menus: widget.menus, close: close),
       ),
     );
   }

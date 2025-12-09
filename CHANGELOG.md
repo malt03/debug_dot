@@ -1,3 +1,7 @@
+## 0.3.0
+
+- Add appBuilder parameter for localization, theming, etc.
+
 ## 0.2.0
 
 - Replace MaterialIcon with custom rendering for close icon
